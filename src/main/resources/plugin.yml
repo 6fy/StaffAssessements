@@ -1,0 +1,9 @@
+name: StaffAssessments
+version: '${project.version}'
+main: me.bouwen.staffassessments.Main
+api-version: 1.14
+commands:
+  staffassessments:
+    usage: </command>
+    description: Staff overview command
+    aliases: [sa, staffassessment]
