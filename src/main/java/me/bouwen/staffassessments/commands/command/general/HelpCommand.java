@@ -16,6 +16,7 @@ public class HelpCommand {
         player.sendMessage(ChatColor.RED + "/staffassessments warn <player> <id> <reason>" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Add a warning to a staff member.");
         player.sendMessage(ChatColor.RED + "/staffassessments unwarn <player> <id> <reason>" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Remove a warning from a staff member.");
         player.sendMessage(ChatColor.RED + "/staffassessments note <player> <note>" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Write a note for a staff member.");
+        player.sendMessage(ChatColor.RED + "/staffassessments setrank <player> <rank>" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Set a rank of a staff member.");
         player.sendMessage(ChatColor.RED + "/staffassessments info <player>" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Get info about a staff member.");
         player.sendMessage(ChatColor.RED + " " + ChatColor.STRIKETHROUGH + "------------------------------");
     }

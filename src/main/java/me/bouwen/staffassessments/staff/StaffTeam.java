@@ -1,11 +1,30 @@
 package me.bouwen.staffassessments.staff;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class StaffTeam {
 
     private static final ArrayList<Staff> staff = new ArrayList<>();
+
+    private static final HashMap<UUID, String> reasonBuilder = new HashMap<>();
+
+    public static boolean isBuildingReason(UUID uuid) {
+        return reasonBuilder.containsKey(uuid);
+    }
+
+    public static String getReasonBuilder(UUID uuid) {
+        return reasonBuilder.get(uuid);
+    }
+
+    public static void setReasonBuilder(UUID uuid, String reason) {
+        reasonBuilder.put(uuid, reason);
+    }
+
+    public static void removeReasonBuilder(UUID uuid) {
+        reasonBuilder.remove(uuid);
+    }
 
     public static ArrayList<Staff> getStaff() {
         return staff;

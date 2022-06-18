@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -22,8 +21,6 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class GUIEvents implements Listener {
-
-    HashMap<UUID, String> warning = new HashMap<>();
 
     @EventHandler
     public void onGUIClick(InventoryClickEvent e) {
@@ -62,8 +59,8 @@ public class GUIEvents implements Listener {
             if (!player.isOp()) return;
 
             if (e.getClick().isLeftClick()) {
-                warning.put(player.getUniqueId(), target + ":" + id);
-                player.sendMessage(ChatColor.RED + "Type anything in chat to confirm your warning or cancel to cancel the warning for " + target);
+                StaffTeam.setReasonBuilder(player.getUniqueId(), target + ":" + id);
+                player.sendMessage(ChatColor.RED + "Type /sa reason <reason> in chat to confirm your warning or /sa reason cancel to cancel the warning for " + target);
                 player.closeInventory();
             }
             if (e.getClick().isRightClick()) {
@@ -73,28 +70,7 @@ public class GUIEvents implements Listener {
         }
     }
 
-    @EventHandler
-    public void onPlayerChat(PlayerChatEvent e) {
-        Player player = e.getPlayer();
-
-        if (!warning.containsKey(player.getUniqueId())) return;
-
-        e.setCancelled(true);
-
-        String[] split = warning.get(player.getUniqueId()).split(":");
-        String reason = e.getMessage();
-        warning.remove(player.getUniqueId());
-
-        if (reason.equalsIgnoreCase("cancel")) {
-            player.sendMessage(ChatColor.RED + "Warning cancelled");
-            return;
-        }
-
-        player.performCommand("sa setwarn " + split[0] + " " + split[1] + " " + reason);
-        openStaffMemberWarnsGUI(player, split[0]);
-    }
-
-    public void openStaffMemberWarnsGUI(Player player, String name) {
+    public static void openStaffMemberWarnsGUI(Player player, String name) {
         Inventory inventory = Bukkit.createInventory(null, 9 * 3, ChatColor.RED + name + "'s Warnings");
 
         Staff staff = StaffTeam.getStaffMember(name);

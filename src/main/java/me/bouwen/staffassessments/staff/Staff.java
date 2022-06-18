@@ -2,6 +2,7 @@ package me.bouwen.staffassessments.staff;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -64,7 +65,13 @@ public class Staff {
     }
 
     public String getName() {
-        return Bukkit.getOfflinePlayer(getUuid()).getName();
+        OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
+
+        if (player.getName() == null) {
+            return uuid.toString();
+        }
+
+        return player.getName();
     }
 
     public int getWarnCount() {

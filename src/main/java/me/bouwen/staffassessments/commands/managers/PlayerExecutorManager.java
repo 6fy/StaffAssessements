@@ -4,10 +4,7 @@ import me.bouwen.staffassessments.commands.command.general.HelpCommand;
 import me.bouwen.staffassessments.commands.command.general.InfoCommand;
 import me.bouwen.staffassessments.commands.command.general.ListCommand;
 import me.bouwen.staffassessments.commands.command.general.ViewCommand;
-import me.bouwen.staffassessments.commands.command.staff.AddStaffCommand;
-import me.bouwen.staffassessments.commands.command.staff.NoteCommand;
-import me.bouwen.staffassessments.commands.command.staff.RemoveStaffCommand;
-import me.bouwen.staffassessments.commands.command.staff.SetRankCommand;
+import me.bouwen.staffassessments.commands.command.staff.*;
 import me.bouwen.staffassessments.commands.command.warns.RemoveWarningCommand;
 import me.bouwen.staffassessments.commands.command.warns.WarnStaffCommand;
 import org.bukkit.Bukkit;
@@ -49,6 +46,22 @@ public class PlayerExecutorManager {
                 OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
 
                 RemoveStaffCommand.execute(player, target);
+                break;
+            }
+            case "reason": {
+                if (args.length <= 2) {
+                    player.sendMessage(ChatColor.RED + "You need to specify a staff member and a reason.");
+                    return;
+                }
+
+                OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
+
+                String reason = "";
+                for (int i = 2; i < args.length; i++) {
+                    reason += args[i] + " ";
+                }
+
+                ReasonCommand.execute(player, target, reason);
                 break;
             }
             case "add": {

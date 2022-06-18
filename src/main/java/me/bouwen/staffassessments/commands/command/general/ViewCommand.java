@@ -5,10 +5,12 @@ import me.bouwen.staffassessments.staff.StaffTeam;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
 
@@ -25,14 +27,21 @@ public class ViewCommand {
         for (Staff staff : StaffTeam.getStaff()) {
 
             ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1);
-            ItemMeta meta = item.getItemMeta();
+
+            SkullMeta meta = (SkullMeta) item.getItemMeta();
             assert meta != null;
+
+            OfflinePlayer p = Bukkit.getOfflinePlayer(staff.getUuid());
+            meta.setOwningPlayer(p);
+
             meta.setDisplayName(ChatColor.RED + staff.getName());
+
             meta.setLore(new ArrayList<String>() {{
                 add(ChatColor.GRAY + "Rank: " + ChatColor.RED + staff.getRank());
                 add(ChatColor.GRAY + "Warnings: " + ChatColor.RED + staff.getWarnCount());
                 add(ChatColor.GRAY + "Note: " + ChatColor.RED + staff.getNote());
             }});
+
             item.setItemMeta(meta);
             inventory.setItem(i, item);
 
