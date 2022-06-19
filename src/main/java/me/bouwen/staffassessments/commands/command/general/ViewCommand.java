@@ -9,7 +9,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
@@ -20,6 +19,8 @@ public class ViewCommand {
             player.sendMessage(ChatColor.RED + "There are no staff members.");
             return;
         }
+
+        player.sendMessage(ChatColor.GRAY + "Please wait while loading the staff menu...");
 
         Inventory inventory = Bukkit.createInventory(null, 9 * 5, ChatColor.RED + "Staff Members");
 

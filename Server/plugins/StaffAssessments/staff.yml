@@ -30,16 +30,6 @@ staff:
     reason2: ''
     warning3: false
     reason3: ''
-  ba312984-a2b8-30ca-964f-66130ebf9159:
-    uuid: ba312984-a2b8-30ca-964f-66130ebf9159
-    rank: Moderator
-    note: ''
-    warning1: false
-    reason1: ''
-    warning2: false
-    reason2: ''
-    warning3: false
-    reason3: ''
   902e9ed0-cd4d-494e-9a28-a47c58f36a29:
     uuid: 902e9ed0-cd4d-494e-9a28-a47c58f36a29
     rank: owner
@@ -92,16 +82,6 @@ staff:
     reason3: ''
   4c43e67c-be2e-4d79-a3b4-47f8a40991a0:
     uuid: 4c43e67c-be2e-4d79-a3b4-47f8a40991a0
-    rank: Developer
-    note: ''
-    warning1: false
-    reason1: ''
-    warning2: false
-    reason2: ''
-    warning3: false
-    reason3: ''
-  8429ddea-abdd-347a-8146-e604cecb42eb:
-    uuid: 8429ddea-abdd-347a-8146-e604cecb42eb
     rank: Developer
     note: ''
     warning1: false

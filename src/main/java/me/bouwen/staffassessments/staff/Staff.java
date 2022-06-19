@@ -1,10 +1,18 @@
 package me.bouwen.staffassessments.staff;
 
+import me.bouwen.staffassessments.util.DiscordWebhook;
+import org.apache.commons.io.IOUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.*;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 public class Staff {
@@ -68,10 +76,46 @@ public class Staff {
         OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
 
         if (player.getName() == null) {
-            return uuid.toString();
+            try {
+                String name = readJsonFromUrl("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid);
+                if (name == null) {
+                    return uuid.toString();
+                } else {
+                    return name;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return uuid.toString();
+            }
         }
 
         return player.getName();
+    }
+
+    private static String readAll(Reader rd) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        int cp;
+        while ((cp = rd.read()) != -1) {
+            sb.append((char) cp);
+        }
+        return sb.toString();
+    }
+
+    public static String readJsonFromUrl(String url) throws IOException, JSONException {
+        try (InputStream is = new URL(url).openStream()) {
+            Reader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+            String jsonText = readAll(rd);
+
+            if (jsonText.split("\"name\"").length > 1) {
+                String name = jsonText.split("\"name\"")[1].split("\",")[0];
+                if (name.split("\"")[1].length() > 1) {
+                    name = name.split("\"")[1];
+                    return name;
+                }
+            }
+
+            return null;
+        }
     }
 
     public int getWarnCount() {
